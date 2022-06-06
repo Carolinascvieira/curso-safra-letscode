@@ -12,11 +12,9 @@ def obter_dados():
         dados = json.loads(arq.read())
     return dados
 
-def listar_categorias(dados):
+def listar_categorias(dados: list) -> list:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    Essa função deverá retornar uma lista contendo todas as categorias dos diferentes produtos.
-    Cuidado para não retornar categorias repetidas.    
+    Essa função recebe uma lista de dicionários, que representa os produtos, e retorna uma lista em ordem alfabética das categorias dos produtos sem duplicados.    
     '''
     categorias = []
     for dado in dados:
@@ -24,11 +22,9 @@ def listar_categorias(dados):
             categorias.append(dado['categoria'])
     return sorted(categorias)
     
-def listar_por_categoria(dados, categoria):
+def listar_por_categoria(dados: list, categoria: str) -> list:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    O parâmetro "categoria" é uma string contendo o nome de uma categoria.
-    Essa função deverá retornar uma lista contendo todos os produtos pertencentes à categoria dada.
+    Essa função recebe uma lista de dicionários, que representa os produtos, recebe também uma categoria, e retorna uma lista contendo todos os produtos pertencentes à categoria dada.
     '''
     produtos = []
     for dado in dados:
@@ -37,11 +33,9 @@ def listar_por_categoria(dados, categoria):
     return produtos
     
 
-def produto_mais_caro(dados, categoria):
+def produto_mais_caro(dados: list, categoria: str) -> dict:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    O parâmetro "categoria" é uma string contendo o nome de uma categoria.
-    Essa função deverá retornar um dicionário representando o produto mais caro da categoria dada.
+    Essa função recebe uma lista de dicionários representando os produtos, recebe também uma categoria e retorna um dicionário representando o produto mais caro da categoria dada.
     '''
     mais_caro = {}
     max_preco = 0
@@ -54,11 +48,9 @@ def produto_mais_caro(dados, categoria):
 
 
 
-def produto_mais_barato(dados, categoria):
+def produto_mais_barato(dados: list, categoria: str) -> dict:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    O parâmetro "categoria" é uma string contendo o nome de uma categoria.
-    Essa função deverá retornar um dicionário representando o produto mais barato da categoria dada.
+    Essa função recebe uma lista de dicionários representando os produtos, recebe também uma categoria e retorna um dicionário representando o produto mais barato da categoria dada.
     '''
     mais_barato = {}
     min_preco = 9999999999999999
@@ -69,39 +61,22 @@ def produto_mais_barato(dados, categoria):
                 mais_barato = dado
     return mais_barato
 
-def top_10_caros(dados):
+def top_10_caros(dados: list) -> list:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    Essa função deverá retornar uma lista de dicionários representando os 10 produtos mais caros.
+    Essa função recebe uma lista de dicionários representando os produtos e retorna uma lista de dicionários representando os 10 produtos mais caros.
     '''
-    return sorted(dados, key = lambda x: float(x["preco"]), reverse = True)[0:10]
+    return sorted(dados, key = lambda x: float(x["preco"]), reverse = True)[:10]
 
 
-def top_10_baratos(dados):
+def top_10_baratos(dados: list) -> list:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    Essa função deverá retornar uma lista de dicionários representando os 10 produtos mais baratos.
+    Essa função recebe uma lista de dicionários representando os produtos e retorna uma lista de dicionários representando os 10 produtos mais baratos.
     '''
-    return sorted(dados, key = lambda x: float(x["preco"]))[0:10]
+    return sorted(dados, key = lambda x: float(x["preco"]))[:10]
 
-def menu(dados):
+def menu(dados: list) -> None:
     '''
-    O parâmetro "dados" deve ser uma lista de dicionários representando os produtos.
-    Essa função deverá, em loop, realizar as seguintes ações:
-    - Exibir as seguintes opções:
-        1. Listar categorias
-        2. Listar produtos de uma categoria
-        3. Produto mais caro por categoria
-        4. Produto mais barato por categoria
-        5. Top 10 produtos mais caros
-        6. Top 10 produtos mais baratos
-        0. Sair
-    - Ler a opção do usuário.
-    - No caso de opção inválida, imprima uma mensagem de erro.
-    - No caso das opções 2, 3 ou 4, pedir para o usuário digitar a categoria desejada.
-    - Chamar a função adequada para tratar o pedido do usuário e salvar seu retorno.
-    - Imprimir o retorno salvo. 
-    O loop encerra quando a opção do usuário for 0.
+    Essa função recebe uma lista de dicionários representando os produtos e trata conforme a entrada do usuário.
     '''
     entrada = ''
     while entrada != '0':
